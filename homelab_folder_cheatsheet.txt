@@ -1,0 +1,21 @@
+~/docker/
+├── gitea/
+│   ├── custom/           # Optional custom config for Gitea
+│   ├── data/             # All Git repos and database
+│   └── logs/             # Optional logs
+│
+├── syncthing/
+│   ├── config/           # Syncthing configuration
+│   └── sync/             # Default sync folders (files synced between devices)
+│
+├── jellyfin/
+│   ├── config/           # Jellyfin server config (users, libraries, settings)
+│   └── media/            # Movies, TV shows, music, etc.
+│
+├── filebrowser/
+│   ├── config/           # FileBrowser settings
+│   └── srv/              # Files you want to access/manage via FileBrowser
+│
+├── netdata/              # Optional: Netdata persistent data (mostly logs)
+│
+└── media/                # Central media folder used by Jellyfin

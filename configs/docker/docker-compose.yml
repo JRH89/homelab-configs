@@ -1,0 +1,50 @@
+version: "3"
+services:
+  gitea:
+    image: gitea/gitea:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    volumes:
+      - ./gitea:/data
+
+  syncthing:
+    image: syncthing/syncthing
+    restart: unless-stopped
+    ports:
+      - "8384:8384"
+      - "22000:22000"
+      - "21027:21027/udp"
+    volumes:
+      - ./syncthing:/var/syncthing
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+      - "8920:8920"
+    devices:
+      - "/dev/dri:/dev/dri"
+    volumes:
+      - ./jellyfin/config:/config
+      - ./media:/media
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./filebrowser:/srv
+      - ./filebrowser/config:/config
+
+  netdata:
+    image: netdata/netdata:latest
+    restart: unless-stopped
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+      - NET_ADMIN
