@@ -45,6 +45,11 @@ echo "📁 Creating Docker directories..."
 mkdir -p ~/docker/{gitea,syncthing,jellyfin,filebrowser,netdata,media}
 mkdir -p ~/docker/media/{movies,tv,music}
 
+# Copy Docker compose file
+echo "📋 Copying Docker compose configuration..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cp "$SCRIPT_DIR/../configs/docker/docker-compose.yml" ~/docker/
+
 # Set permissions
 echo "🔐 Setting permissions..."
 sudo chown -R $USER:$USER ~/docker

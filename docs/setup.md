@@ -193,7 +193,55 @@ Plug in HDMI monitor → automatically shows i3 desktop with:
 
 i3 allows resizing/swapping panes with keyboard shortcuts. Auto-start apps ensure dashboard appears without manual intervention.
 
-## Step 13 — Maintenance
+## 🚀 On the Mini PC (Ubuntu):
+
+### 1. **Clone Your Repository**
+```bash
+git clone https://github.com/yourusername/homelab-configs.git
+cd homelab-configs
+```
+
+### 2. **Setup Environment**
+```bash
+cp .env.example .env
+nano .env  # Edit your IP, domain, etc.
+./scripts/make-executable.sh
+```
+
+### 3. **Run Setup**
+```bash
+./scripts/setup.sh
+```
+> The setup script automatically:
+> - Updates system packages
+> - Installs Docker and Docker Compose
+> - Sets up desktop environment (XFCE + i3)
+> - Installs monitoring tools (btop, Chromium)
+> - Enables hardware acceleration for Jellyfin
+> - Creates `~/docker/` directory structure
+> - **Copies Docker compose file to `~/docker/`**
+
+### 4. **Reboot**
+```bash
+sudo reboot
+```
+> Required for Docker group permissions to take effect
+
+### 5. **Start Services**
+```bash
+cd ~/docker
+docker compose up -d
+```
+
+## 🎯 **Result:**
+All services running at:
+- **Gitea**: `http://<your-ip>:3000`
+- **Jellyfin**: `http://<your-ip>:8096`
+- **Syncthing**: `http://<your-ip>:8384`
+- **FileBrowser**: `http://<your-ip>:8080`
+- **Netdata**: `http://<your-ip>:19999`
+
+## 🛠️ Maintenance
 
 ### Update Ubuntu:
 ```bash
@@ -202,15 +250,30 @@ sudo apt update && sudo apt upgrade -y
 
 ### Update Docker containers:
 ```bash
+cd ~/docker
 docker compose pull
 docker compose up -d
 ```
 
-### Backup:
-Backup `~/docker` → all services + data are persisted here.
+### Automated Updates:
+```bash
+cd ~/homelab-configs
+./scripts/update.sh
+```
 
-## ✅ Result:
+### Backup:
+```bash
+# Quick backup (Docker data only)
+cd ~/homelab-configs
+./scripts/backup.sh
+
+# Comprehensive backup (configs + system)
+./configs/backup/backup.sh
+```
+
+## ✅ Final Result:
 - Local home lab with Docker services: Gitea, Syncthing, Jellyfin, FileBrowser, Netdata
 - Always-on monitor dashboard showing btop + Netdata
 - Full control over files, media, and development environment
+- Automated setup, updates, and backup solutions
 - Efficient, lightweight, and expandable
