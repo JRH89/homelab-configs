@@ -6,7 +6,7 @@
 
 ## **WHAT IT IS**
 
-### 🎯 **5 Self-Hosted Services That Replace Big Tech:**
+### **5 Self-Hosted Services That Replace Big Tech:**
 - **Gitea** - Your PRIVATE GitHub (no Microsoft, no tracking)
 - **Jellyfin** - Your PERSONAL Netflix (stream your own movies/TV in 4K)
 - **Syncthing** - Your SECURE Dropbox (sync files between all devices)
