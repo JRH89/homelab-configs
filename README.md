@@ -46,8 +46,8 @@ git clone https://github.com/yourusername/homelab-configs.git
 cd homelab-configs
 cp .env.example .env && nano .env  # Edit your IP once
 ./scripts/make-executable.sh
-./scripts/setup.sh && sudo reboot  # 🎯 THIS INSTALLS EVERYTHING
-cd ~/docker && docker compose up -d  # 🚀 STARTS ALL SERVICES
+./scripts/setup.sh && sudo reboot  # THIS INSTALLS EVERYTHING
+cd ~/docker && docker compose up -d  # STARTS ALL SERVICES
 ```
 
 **That's it.** No complex setup. No manual configuration. No BS.
