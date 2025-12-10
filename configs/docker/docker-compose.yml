@@ -1,5 +1,7 @@
-version: "3"
+version: "3.9"
+
 services:
+
   gitea:
     image: gitea/gitea:latest
     restart: unless-stopped
@@ -10,25 +12,29 @@ services:
       - ./gitea:/data
 
   syncthing:
-    image: syncthing/syncthing
+    image: syncthing/syncthing:latest
     restart: unless-stopped
     ports:
-      - "8384:8384"
-      - "22000:22000"
-      - "21027:21027/udp"
+      - "8384:8384"          # Web UI
+      - "22000:22000"        # TCP sync
+      - "22000:22000/udp"    # QUIC sync
+      - "21027:21027/udp"    # Discovery
     volumes:
       - ./syncthing:/var/syncthing
 
   jellyfin:
     image: jellyfin/jellyfin:latest
     restart: unless-stopped
-    ports:
-      - "8096:8096"
-      - "8920:8920"
+    network_mode: host   # (Important for the best streaming performance)
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
     devices:
-      - "/dev/dri:/dev/dri"
+      - /dev/dri:/dev/dri
     volumes:
       - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
       - ./media:/media
 
   filebrowser:
